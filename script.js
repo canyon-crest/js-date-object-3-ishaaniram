@@ -23,8 +23,7 @@ let num = now.getDay();
 // STEP 3: Create an array of day names:
 //         let days = ["Sunday", "Monday", "Tuesday", "Wednesday",
 //                     "Thursday", "Friday", "Saturday"];
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];                     
-
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 // STEP 4: Use the day number as an index to get the day name
 //         from the array.
 let name = days[num];
@@ -70,13 +69,12 @@ let start = new Date().getTime();
 //          b) Calculate elapsed seconds: (currentTime - startTime) / 1000
 //          c) Display the elapsed time using .toFixed(3)
 //             in the element with ID "myTimer"
-let timer = setInterval(function() {
+// FIX: Changed variable name to 'timerId' and added the ', 10' delay at the end
+let timerId = setInterval(function() {
     let current = new Date().getTime();
     let elapsed = (current - start) / 1000;
     document.getElementById("myTimer").innerHTML = elapsed.toFixed(3);
-
-});
-
+}, 10);
 
 // ============================================
 //  PART 3: Start/Stop Toggle Button
@@ -104,20 +102,20 @@ let running = true;
 //             - Set running to true
 document.getElementById("myBtn").addEventListener("click", function(){
     if(running === true) {
+        // FIX: Clears 'timerId' correctly now
         clearInterval(timerId);
         document.getElementById("myBtn").innerHTML = "Start";
         running = false;
     } else {
         start = new Date().getTime();
-        timer = setInterval(function(){
+        // FIX: Re-assigns 'timerId' instead of 'timer' so it can be cleared again later
+        timerId = setInterval(function(){
             let current = new Date().getTime();
             let elapsed = (current - start) / 1000;
             document.getElementById("myTimer").innerHTML = elapsed.toFixed(3);
-
         }, 10);
 
         document.getElementById("myBtn").innerHTML = "Stop";
         running = true;
     }
-
 });
